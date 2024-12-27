@@ -1,2 +1,2 @@
-# edge-case-ansible-series
-Items and artifacts from Ansible for Check Point video series
+# Edge Case Scenario: Ansible for Check Point security management
+
