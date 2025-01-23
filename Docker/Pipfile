@@ -1,0 +1,26 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+ansible = "*"
+napalm-ansible = "*"
+cvprac = ">=1.2.2"
+jmespath = "*"
+netaddr = ">=0.7.19"
+jinja2 = ">=2.10.3"
+paramiko = ">=2.7.1"
+requests = ">=2.22.0"
+jsonschema = ">=3.2.0"
+treelib = ">=1.5.5"
+ansible-pylibssh = "*"
+molecule = "*"
+yamllint = "*"
+passlib = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.11"
+
