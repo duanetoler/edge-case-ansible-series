@@ -1,0 +1,15 @@
+---
+all:
+  children:
+    check_point:
+check_point:
+  children:
+    ckp_mgmt:
+    ckp_gw:
+ckp_mgmt:
+  hosts:
+    cpmgmt01:
+ckp_gw:
+  hosts:
+     cpgw01:
+...

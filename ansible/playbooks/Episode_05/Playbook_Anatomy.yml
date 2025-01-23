@@ -1,0 +1,40 @@
+---
+- name: Playbook Anatomy
+  hosts: ckp_mgmt
+  connection: httpapi
+
+  vars:
+    variable_a: value of variable
+    variable_b: 42
+    variable_c: true
+  vars_files:
+    - vars.yml
+
+  tasks:
+    - name: Task 1
+      some_module:
+        parameter: param_value
+
+    - name: Task 2
+      another_module:
+        parameter: some_value
+        other_param: other_value
+
+...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

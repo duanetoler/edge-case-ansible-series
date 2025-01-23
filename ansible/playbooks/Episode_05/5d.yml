@@ -1,0 +1,48 @@
+---
+- name: Demo of Check Point modules
+  hosts: ckp_mgmt
+  connection: httpapi
+  gather_facts: false
+
+  vars:
+    ansible_api_key: 'z2xM5SYQcmjg+H/bDGHHSA=='
+    ansible_network_os: check_point.mgmt.checkpoint
+
+  tasks:
+    - name: Get hosts
+      check_point.mgmt.cp_mgmt_host_facts:
+      register: host_facts
+
+    - name: Show host facts
+      ansible.builtin.debug:
+        var: host_facts
+
+    - name: Add or set a host
+      check_point.mgmt.cp_mgmt_host:
+        name: new_host
+        ipv4_address: 192.0.2.1
+        color: yellow
+
+    - name: Publish session
+      check_point.mgmt.cp_mgmt_publish:
+        wait_for_task: true
+
+- name: Demo of Check Point modules
+  hosts: ckp_mgmt
+  connection: httpapi
+
+  vars:
+    ansible_api_key: 'z2xM5SYQcmjg+H/bDGHHSA=='
+    ansible_network_os: check_point.mgmt.checkpoint
+
+  tasks:
+    - name: Check host
+      check_point.mgmt.cp_mgmt_host_facts:
+        name: new_host
+      register: host_facts
+
+    - name: Show new host fact
+      ansible.builtin.debug:
+        var: host_facts
+
+...

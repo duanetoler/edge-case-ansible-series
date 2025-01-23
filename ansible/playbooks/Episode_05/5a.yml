@@ -1,0 +1,20 @@
+---
+- name: Demo of Check Point modules
+  hosts: ckp_mgmt
+  connection: httpapi
+
+  vars:
+    ansible_network_os: check_point.mgmt.checkpoint
+    ansible_api_key: 'z2xM5SYQcmjg+H/bDGHHSA=='
+    ansible_httpapi_port: 443
+
+  tasks:
+    - name: Get hosts
+      check_point.mgmt.cp_mgmt_host_facts:
+      register: host_facts
+
+    - name: Show host facts
+      ansible.builtin.debug:
+        var: host_facts
+
+...
