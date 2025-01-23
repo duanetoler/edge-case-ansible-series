@@ -8,7 +8,7 @@ From this cloned directory, run the Docker build command:
 docker build -t my/ansible .
 ```
 
-Change the name "my/ansible" to whatever you wish.  This will build a
+The trailing dot on the end is __*required*__.  You can change the name "my/ansible" to whatever you wish.  This will build a
 container based on Python 3.11 and Ansible 2.18, and include the Check Point
 Management API and Gaia API module collections.
 
