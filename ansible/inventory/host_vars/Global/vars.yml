@@ -1,4 +1,4 @@
 ---
 ansible_host: 192.0.2.1
-ansible_checkpoint_domain: Global/
+ansible_checkpoint_domain: Global
 ...
