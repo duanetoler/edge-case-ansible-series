@@ -1,0 +1,15 @@
+---
+- name: Loops
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: Loop intro
+      debug:
+        var: item
+      loop:
+        - red
+        - green
+        - blue
+
+...

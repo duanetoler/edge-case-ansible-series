@@ -1,0 +1,45 @@
+---
+- name: Loops
+  hosts: cpmgmt01
+  connection: httpapi
+  gather_facts: false
+  
+  vars:
+    ansible_network_os: check_point.mgmt.checkpoint
+    ansible_api_key: 'z2xM5SYQcmjg+H/bDGHHSA=='
+    my_hosts:
+      - name: host1
+        ip_address: 192.0.2.101
+      - name: host2
+        ip_address: '2001:db8::02'
+
+  tasks:
+    - name: Show Hosts
+      check_point.mgmt.cp_mgmt_host_facts:
+      register: host_facts
+
+    - name: Show host facts
+      ansible.builtin.debug:
+        msg: "{{ host_facts }}"
+
+    - name: Add Hosts
+      check_point.mgmt.cp_mgmt_host:
+        name: "{{ myvar.name }}"
+        ip_address: "{{ myvar.ip_address }}"
+      loop: "{{ my_hosts }}"
+      loop_control:
+        loop_var: myvar
+        label: "Label is {{ myvar }}"
+
+    - name: Show Hosts
+      check_point.mgmt.cp_mgmt_host_facts:
+      register: host_facts
+
+    - name: Show host facts
+      ansible.builtin.debug:
+        msg: "{{ host_facts }}"
+
+    - name: Publish
+      check_point.mgmt.cp_mgmt_publish:
+        wait_for_task: true
+...

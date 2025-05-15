@@ -1,0 +1,24 @@
+---
+- name: Loops
+  hosts: localhost
+  connection: httpapi
+  gather_facts: false
+  
+  vars:
+    ansible_network_os: check_point.mgmt.checkpoint
+    ansible_api_key: 'z2xM5SYQcmjg+H/bDGHHSA=='
+    my_hosts:
+      - name: host1
+        ip_address: 192.0.2.101
+      - name: host2
+        ip_address: '2001:db8::2'
+
+  tasks:
+    - name: Add Hosts
+      debug:
+        msg: "{{ myvar['name'] }} {{ myvar['ip_address'] }}"
+      loop: "{{ my_hosts }}"
+      loop_control:
+        loop_var: myvar
+        label: "Label is {{ myvar }}"
+...

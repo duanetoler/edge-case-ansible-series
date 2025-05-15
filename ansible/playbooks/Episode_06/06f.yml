@@ -1,0 +1,20 @@
+---
+- name: Loops
+  hosts: localhost
+  gather_facts: false
+  
+  vars:
+    my_list:
+      - red
+      - green
+      - blue
+
+  tasks:
+    - name: Loop intro
+      debug:
+        msg: "{{ myvar }}"  # use double quotes
+      loop_control:
+        loop_var: myvar
+        label: "Label is {{ myvar }}"
+      loop: "{{ my_list }}"
+...
