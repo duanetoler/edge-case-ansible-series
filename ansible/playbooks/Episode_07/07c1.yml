@@ -1,0 +1,36 @@
+---
+- name: Play1
+  hosts: cpmgmt01
+  connection: httpapi
+  gather_facts: false
+  
+  vars:
+    ansible_network_os: check_point.mgmt.checkpoint
+    ansible_api_key: 'z2xM5SYQcmjg+H/bDGHHSA=='
+    host_objects:
+      - name: Host1
+        comment: Comment Line
+        ipv4_address: 192.0.2.1
+
+  tasks:
+    - name: Add Hosts
+      check_point.mgmt.cp_mgmt_host:
+        name: "{{ host_item.name }}"
+        ip_address: "{{ host_item.ADDRESS }}"
+      loop: "{{ host_objects |default([]) }}"
+      loop_control:
+        loop_var: host_item
+        label: "Label is {{ host_item }}"
+
+    - name: Show Hosts
+      check_point.mgmt.cp_mgmt_host_facts:
+      register: host_facts
+
+    - name: Show host facts
+      ansible.builtin.debug:
+        msg: "{{ host_facts }}"
+
+    - name: Discard
+      check_point.mgmt.cp_mgmt_discard:
+        wait_for_task: true
+...

@@ -1,0 +1,12 @@
+---
+- name: Undefined variable example
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: This task will be skipped
+      ansible.builtin.debug:
+        var: item
+      loop: "{{ host_objects |default([]) }}"
+
+...

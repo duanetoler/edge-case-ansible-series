@@ -1,0 +1,42 @@
+---
+- name: Loops
+  hosts: cpmgmt01
+  connection: httpapi
+  gather_facts: false
+  
+  vars:
+    ansible_network_os: check_point.mgmt.checkpoint
+    ansible_api_key: 'z2xM5SYQcmjg+H/bDGHHSA=='
+  vars_files:
+    - vars.yml
+
+  tasks:
+    - name: Show Hosts
+      check_point.mgmt.cp_mgmt_host_facts:
+      register: host_facts
+
+    - name: Show host facts
+      ansible.builtin.debug:
+        msg: "{{ host_facts }}"
+
+    - name: Add Hosts
+      check_point.mgmt.cp_mgmt_host:
+        name: "{{ host_item.name }}"
+        ip_address: "{{ host_item.ip_address }}"
+      loop: "{{ host_objects |default([]) }}"
+      loop_control:
+        loop_var: host_item
+        label: "Label is {{ host_item }}"
+
+    - name: Show Hosts
+      check_point.mgmt.cp_mgmt_host_facts:
+      register: host_facts
+
+    - name: Show host facts
+      ansible.builtin.debug:
+        msg: "{{ host_facts }}"
+
+    - name: Publish
+      check_point.mgmt.cp_mgmt_publish:
+        wait_for_task: true
+...

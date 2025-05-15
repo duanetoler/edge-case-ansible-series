@@ -1,0 +1,10 @@
+---
+host_objects:
+  - name: host1
+    ip_address: 192.0.2.200
+    color: forest green
+  - name: host2
+    ip_address: '2001:db8::200'
+    comments: An IPv6 host
+
+...

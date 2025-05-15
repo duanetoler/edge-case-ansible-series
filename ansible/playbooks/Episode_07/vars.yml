@@ -1,0 +1,17 @@
+---
+host_objects:
+  - name: host1
+    ip_address: 192.0.2.200
+    color: forest green
+    comments: An IPv4 host
+    tags:
+      - tag1
+  - name: host2
+    ip_address: '2001:db8::192:0:2:201'
+    color: violet red
+    comments: An IPv6 host
+    tags:
+      - tag1
+      - tag2
+
+...

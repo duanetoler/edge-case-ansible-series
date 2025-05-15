@@ -1,0 +1,11 @@
+---
+- hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - debug:
+        msg:
+          line1: "{{ foo |default('bar') }}"
+          line2: "{{ foo |default(omit) }}"
+
+...

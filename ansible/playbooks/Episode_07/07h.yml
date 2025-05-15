@@ -1,0 +1,66 @@
+---
+- name: Loops
+  hosts: cpmgmt01
+  connection: httpapi
+  gather_facts: false
+  
+  vars:
+    ansible_network_os: check_point.mgmt.checkpoint
+    ansible_api_key: 'z2xM5SYQcmjg+H/bDGHHSA=='
+  vars_files:
+    - vars-07f.yml
+
+  tasks:
+    - name: Get all hosts
+      check_point.mgmt.cp_mgmt_host_facts:
+        name: "{{ host_item.name }}"
+      loop: "{{ host_objects |default([]) }}"
+      loop_control:
+        loop_var: host_item
+        label: "Get host {{ host_item.name }}"
+      register: new_host_facts
+
+    - name: Show each host
+      ansible.builtin.debug:
+        msg: "{{ host_item.ansible_facts.host.name }},
+              {{ host_item.ansible_facts.host.color }},
+              {{ host_item.ansible_facts.host.comments }}"
+      loop: "{{ new_host_facts['results'] }}"
+      loop_control:
+        loop_var: host_item
+        label: "Debug of {{ host_item.ansible_facts.host.name }}"
+
+    - name: Add Hosts
+      check_point.mgmt.cp_mgmt_host:
+        name: "{{ host_item.name }}"
+        ip_address: "{{ host_item.ip_address }}"
+        comments: "{{ host_item.comments |default(omit) }}"
+        color: "{{ host_item.color |default(omit) }}"
+      loop: "{{ host_objects |default([]) }}"
+      loop_control:
+        loop_var: host_item
+        label: "Add host {{ host_item.name }}"
+
+    - name: Get all hosts
+      check_point.mgmt.cp_mgmt_host_facts:
+        name: "{{ host_item.name }}"
+      loop: "{{ host_objects |default([]) }}"
+      loop_control:
+        loop_var: host_item
+        label: "Get host {{ host_item.name }}"
+      register: new_host_facts
+
+    - name: Show each host
+      ansible.builtin.debug:
+        msg: "{{ host_item.ansible_facts.host.name }},
+              {{ host_item.ansible_facts.host.color }},
+              {{ host_item.ansible_facts.host.comments }}"
+      loop: "{{ new_host_facts['results'] }}"
+      loop_control:
+        loop_var: host_item
+        label: "Debug of {{ host_item.ansible_facts.host.name }}"
+
+    - name: Publish
+      check_point.mgmt.cp_mgmt_publish:
+        wait_for_task: true
+...
